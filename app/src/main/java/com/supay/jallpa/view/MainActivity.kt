@@ -68,7 +68,7 @@ class MainActivity : AppCompatActivity() {
 
                 val longitude = locationTrack.getLongitude()
                 val latitude = locationTrack.getLatitude()
-                viewModel.setCurrentLocation(Location("1",longitude, latitude))
+                viewModel.setCurrentLocation(Location(longitude, latitude))
 
                 Toast.makeText(
                     getApplicationContext(),

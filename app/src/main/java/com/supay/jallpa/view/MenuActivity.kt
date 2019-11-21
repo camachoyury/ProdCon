@@ -22,8 +22,14 @@ class MenuActivity: AppCompatActivity() {
             startActivity(myIntent)
         }
 
-        producer.setOnClickListener {
-            val myIntent = Intent(this, MainActivity::class.java)
+        seller.setOnClickListener {
+            val myIntent = Intent(this, SellerForm::class.java)
             startActivity(myIntent) }
+
+        sellerRegistry.setOnClickListener {
+            val myIntent = Intent(this, SellerForm::class.java)
+            startActivity(myIntent)
+        }
     }
+
 }

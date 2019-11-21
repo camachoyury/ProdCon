@@ -1,69 +1,145 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/linearLayout2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="24dp"
     android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/editTextName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
-        android:ems="10"
-        android:hint="Nombre Productor"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/editTextPhone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="55dp"
-        android:ems="10"
-        android:hint="Telefono"
-        android:inputType="phone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextName" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <EditText
-        android:id="@+id/editTextProduct"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="46dp"
-        android:ems="10"
-        android:hint="Producto"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextPhone" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/editTextComments"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:ems="10"
-        android:hint="Comentarios"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextProduct" />
+            <EditText
+                android:id="@+id/editTextName"
+                android:layout_width="match_parent"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                android:layout_height="50dp"
+                android:ems="10"
+                android:layout_marginTop="18dp"
+                android:background="@drawable/custom_edittext"
+                android:inputType="textPersonName"
+                android:textSize="16dp"
+                android:textColor="@color/colorBlack"
+                android:hint="Nombre Completo" />
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="50dp"
-        android:text="Agregar"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+            <EditText
+                android:id="@+id/editTextPhone"
+                android:layout_width="match_parent"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                android:layout_height="50dp"
+                android:ems="10"
+                android:layout_marginTop="18dp"
+                android:background="@drawable/custom_edittext"
+                android:inputType="phone"
+                android:textSize="16dp"
+                android:textColor="@color/colorBlack"
+                android:hint="Celular" />
 
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                android:layout_height="50dp"
+                android:paddingBottom="12dp"
+                android:layout_marginTop="18dp"
+                app:passwordToggleEnabled="true"
+                android:hint="Contraseña"
+                app:passwordToggleContentDescription=""
+                app:passwordToggleTint="@color/colorAccent"
+                app:passwordToggleTintMode="multiply"
+                android:gravity="top"
+                android:background="@drawable/custom_edittext">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/editTextPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:inputType="textPassword"
+                    android:textColor="@color/colorBlack" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/textViewPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:layout_marginStart="16dp"
+                android:textStyle="italic"
+                android:text="*Se requieren mínimo 8 caractéres" />
+
+            <EditText
+                android:id="@+id/editTextAddress"
+                android:layout_width="match_parent"
+                android:padding="15dp"
+                android:layout_height="120dp"
+                android:ems="10"
+                android:layout_marginTop="18dp"
+                android:background="@drawable/custom_edittext"
+                android:inputType="textMultiLine"
+                android:gravity="top"
+                android:textSize="16dp"
+                android:textColor="@color/colorBlack"
+                android:hint="Dirección (No obligatoria)" />
+
+            <EditText
+                android:id="@+id/editTextProduct"
+                android:layout_width="match_parent"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                android:layout_height="50dp"
+                android:ems="10"
+                android:layout_marginTop="18dp"
+                android:background="@drawable/custom_edittext"
+                android:inputType="text"
+                android:textSize="16dp"
+                android:textColor="@color/colorBlack"
+                android:hint="Producto" />
+
+            <EditText
+                android:id="@+id/editTextComments"
+                android:layout_width="match_parent"
+                android:padding="15dp"
+                android:layout_height="120dp"
+                android:ems="10"
+                android:layout_marginTop="18dp"
+                android:background="@drawable/custom_edittext"
+                android:inputType="textMultiLine"
+                android:gravity="top"
+                android:textSize="16dp"
+                android:textColor="@color/colorBlack"
+                android:hint="Comentarios Adicionales" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:gravity="bottom">
+
+        <Button
+            android:id="@+id/buttonSave"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/colorAccent"
+            android:textColor="@color/colorWhite"
+            android:text="Registrar" />
+
+    </LinearLayout>
+
+</LinearLayout>

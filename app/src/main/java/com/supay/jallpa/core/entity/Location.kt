@@ -1,3 +1,3 @@
 package com.supay.core
 
-data class Location(val id: String, val longitude:Double, val latitude:Double)
+data class Location(val longitude:Double, val latitude:Double)
