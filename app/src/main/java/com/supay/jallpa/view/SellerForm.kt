@@ -7,7 +7,6 @@ import com.supay.jallpa.R
 
 class SellerForm : AppCompatActivity() {
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.seller_form_activity)
