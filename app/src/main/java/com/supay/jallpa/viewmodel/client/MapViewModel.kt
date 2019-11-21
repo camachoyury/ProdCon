@@ -1,4 +1,4 @@
-package com.supay.jallpa.viewmodel
+package com.supay.jallpa.viewmodel.client
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

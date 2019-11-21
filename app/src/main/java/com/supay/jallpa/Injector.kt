@@ -1,6 +1,6 @@
 package com.supay.jallpa
 
-import com.supay.jallpa.viewmodel.MapViewModelFactory
+import com.supay.jallpa.viewmodel.client.MapViewModelFactory
 import com.supay.core.*
 import com.supay.jallpa.viewmodel.ViewModelFactory
 

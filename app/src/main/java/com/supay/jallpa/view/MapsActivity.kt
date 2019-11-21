@@ -13,7 +13,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.supay.jallpa.Injector
 import com.supay.jallpa.R
-import com.supay.jallpa.viewmodel.MapViewModel
+import com.supay.jallpa.viewmodel.client.MapViewModel
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
