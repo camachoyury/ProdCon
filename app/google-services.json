@@ -1,0 +1,115 @@
+{
+  "project_info": {
+    "project_number": "47066674846",
+    "firebase_url": "https://radius-c2eaf.firebaseio.com",
+    "project_id": "radius-c2eaf",
+    "storage_bucket": "radius-c2eaf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:47066674846:android:1e80140da4526d39",
+        "android_client_info": {
+          "package_name": "com.camachoyury.radius"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "47066674846-2ksg6o784mtp6fan93bl50i4956m5mtj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.camachoyury.radius",
+            "certificate_hash": "d25e4f792bf12f3cc3435c3762393bb7fae11d22"
+          }
+        },
+        {
+          "client_id": "47066674846-6erkvmiqpe9n4b03veipathcbqv6lrhs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC7jRQcY6ndxXNLJDk6e21ocgLSYEiXV1M"
+        },
+        {
+          "current_key": "AIzaSyBAcqUW3k4bQ_nY3pdSA9ODAJjY3WuYbGQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "47066674846-6erkvmiqpe9n4b03veipathcbqv6lrhs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:47066674846:android:b83dbac079cd622964ed8f",
+        "android_client_info": {
+          "package_name": "com.supay.jallpa"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "47066674846-6erkvmiqpe9n4b03veipathcbqv6lrhs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC7jRQcY6ndxXNLJDk6e21ocgLSYEiXV1M"
+        },
+        {
+          "current_key": "AIzaSyBAcqUW3k4bQ_nY3pdSA9ODAJjY3WuYbGQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "47066674846-6erkvmiqpe9n4b03veipathcbqv6lrhs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:47066674846:android:88fcde045466578b64ed8f",
+        "android_client_info": {
+          "package_name": "com.supay.seller"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "47066674846-6erkvmiqpe9n4b03veipathcbqv6lrhs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC7jRQcY6ndxXNLJDk6e21ocgLSYEiXV1M"
+        },
+        {
+          "current_key": "AIzaSyBAcqUW3k4bQ_nY3pdSA9ODAJjY3WuYbGQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "47066674846-6erkvmiqpe9n4b03veipathcbqv6lrhs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

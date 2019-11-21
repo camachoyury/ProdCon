@@ -1,2 +1,2 @@
-include ':app', ':buyer', ':core'
+include ':app'
 rootProject.name='Producer'
