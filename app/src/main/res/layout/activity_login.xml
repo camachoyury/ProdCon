@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="24dp"
+    tools:context="com.supay.jallpa.view.LoginActivity">
+
+    <EditText
+        android:id="@+id/editTextPhone"
+        android:layout_width="match_parent"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        android:layout_height="50dp"
+        android:ems="10"
+        android:layout_marginTop="18dp"
+        android:background="@drawable/custom_edittext"
+        android:inputType="phone"
+        android:textSize="16dp"
+        android:textColor="@color/colorBlack"
+        android:hint="Celular" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        android:layout_height="50dp"
+        android:paddingBottom="12dp"
+        android:layout_marginTop="18dp"
+        app:passwordToggleEnabled="true"
+        android:hint="Contraseña"
+        app:passwordToggleContentDescription=""
+        app:passwordToggleTint="@color/colorAccent"
+        app:passwordToggleTintMode="multiply"
+        android:gravity="top"
+        android:background="@drawable/custom_edittext">
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/editTextPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:inputType="textPassword"
+            android:textColor="@color/colorBlack" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/buttonEnter"
+        android:layout_marginTop="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/colorAccent"
+        android:textColor="@color/colorWhite"
+        android:text="Entrar" />
+
+</LinearLayout>
