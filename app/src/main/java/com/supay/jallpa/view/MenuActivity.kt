@@ -1,9 +1,9 @@
-package com.supay.jallpa
+package com.supay.jallpa.view
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.supay.jallpa.MapsActivity
+import com.supay.jallpa.R
 import kotlinx.android.synthetic.main.main_layout.*
 
 

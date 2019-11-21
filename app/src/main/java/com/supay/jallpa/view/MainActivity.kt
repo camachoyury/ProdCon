@@ -1,4 +1,4 @@
-package com.supay.jallpa
+package com.supay.jallpa.view
 
 import android.annotation.TargetApi
 import android.content.DialogInterface
@@ -18,6 +18,10 @@ import androidx.appcompat.app.AppCompatActivity
 
 import androidx.lifecycle.ViewModelProviders
 import com.supay.core.Location
+import com.supay.jallpa.Injector
+import com.supay.jallpa.LocationTrack
+import com.supay.jallpa.R
+import com.supay.jallpa.viewmodel.TrackViewModel
 
 class MainActivity : AppCompatActivity() {
 
@@ -35,7 +39,8 @@ class MainActivity : AppCompatActivity() {
         permissions.add(ACCESS_FINE_LOCATION)
         permissions.add(ACCESS_COARSE_LOCATION)
 
-        viewModel = ViewModelProviders.of(this, Injector.provideViewModelFactory()).get(TrackViewModel::class.java)
+        viewModel = ViewModelProviders.of(this, Injector.provideViewModelFactory()).get(
+            TrackViewModel::class.java)
 //        showFirstTodo()
         permissionsToRequest = findUnAskedPermissions(permissions)
         //get the permissions we have asked for before but are not granted..
@@ -44,7 +49,9 @@ class MainActivity : AppCompatActivity() {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (permissionsToRequest!!.size > 0)
-                requestPermissions(permissionsToRequest!!.toTypedArray(), ALL_PERMISSIONS_RESULT)
+                requestPermissions(permissionsToRequest!!.toTypedArray(),
+                    ALL_PERMISSIONS_RESULT
+                )
         }
 
 

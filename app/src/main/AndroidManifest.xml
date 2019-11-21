@@ -13,10 +13,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.supay.jallpa.MainActivity">
+        <activity android:name="com.supay.jallpa.view.MainActivity">
 
         </activity>
-        <activity android:name="MenuActivity">
+        <activity android:name=".view.MenuActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -28,7 +28,7 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".MapsActivity">
+            android:name=".view.MapsActivity">
         </activity>
 
     </application>

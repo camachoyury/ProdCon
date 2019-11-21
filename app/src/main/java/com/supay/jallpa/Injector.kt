@@ -1,13 +1,14 @@
 package com.supay.jallpa
 
-import com.supay.jallpa.MapViewModelFactory
+import com.supay.jallpa.viewmodel.MapViewModelFactory
 import com.supay.core.*
+import com.supay.jallpa.viewmodel.ViewModelFactory
 
 object Injector {
 
-    fun provideViewModelFactory(): ViewModelFactory{
+    fun provideViewModelFactory(): ViewModelFactory {
 
-        return  ViewModelFactory(trackerRepository)
+        return ViewModelFactory(trackerRepository)
     }
 
     val trackerRepository: TrackRepository by lazy { return@lazy TrackRepository(trackerService)}
@@ -16,7 +17,7 @@ object Injector {
 
     fun provideMapViewModelFactory(): MapViewModelFactory {
 
-        return  MapViewModelFactory(sellerRepository)
+        return MapViewModelFactory(sellerRepository)
     }
 
     val sellerRepository: SellerRepository by lazy { return@lazy SellerRepository(sellerService)}
