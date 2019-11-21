@@ -16,12 +16,11 @@ import android.Manifest.permission.ACCESS_FINE_LOCATION
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 
-import androidx.lifecycle.ViewModelProviders
 import com.supay.core.Location
-import com.supay.jallpa.Injector
 import com.supay.jallpa.LocationTrack
 import com.supay.jallpa.R
 import com.supay.jallpa.viewmodel.TrackViewModel
+import com.supay.jallpa.viewmodel.getViewModel
 
 class MainActivity : AppCompatActivity() {
 
@@ -30,7 +29,10 @@ class MainActivity : AppCompatActivity() {
     private val permissionsRejected = ArrayList<String>()
     private val permissions = ArrayList<String>()
     internal lateinit var locationTrack: LocationTrack
-    lateinit var viewModel: TrackViewModel
+
+    val viewModel by lazy {
+        getViewModel { TrackViewModel(Injector.trackerRepository) }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,8 +41,11 @@ class MainActivity : AppCompatActivity() {
         permissions.add(ACCESS_FINE_LOCATION)
         permissions.add(ACCESS_COARSE_LOCATION)
 
-        viewModel = ViewModelProviders.of(this, Injector.provideViewModelFactory()).get(
-            TrackViewModel::class.java)
+
+
+
+
+
 //        showFirstTodo()
         permissionsToRequest = findUnAskedPermissions(permissions)
         //get the permissions we have asked for before but are not granted..
@@ -174,10 +179,5 @@ class MainActivity : AppCompatActivity() {
         private val ALL_PERMISSIONS_RESULT = 101
     }
 
-//    private fun showFirstTodo() {
-//        viewModel.fetchMovies()
-//        viewModel.popularMoviesLiveData.observe(this, Observer {
-//            titleTextView.text = it.title
-//        })
-//    }
+
 }

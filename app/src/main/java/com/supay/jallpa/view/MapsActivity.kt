@@ -3,7 +3,6 @@ package com.supay.jallpa.view
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -11,14 +10,15 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import com.supay.jallpa.Injector
 import com.supay.jallpa.R
-import com.supay.jallpa.viewmodel.client.MapViewModel
+import com.supay.jallpa.viewmodel.MapViewModel
+import com.supay.jallpa.viewmodel.getViewModel
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
-    private lateinit var mapViewModel: MapViewModel
+
+    val  mapViewModel by lazy { getViewModel { MapViewModel() } }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,14 +27,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
-        mapViewModel = ViewModelProviders.of(this,
-            Injector.provideMapViewModelFactory()
-        ).get(
-            MapViewModel::class.java)
+        mapViewModel.updateUI()
 
-        mapViewModel.sellersLiveData.observe(this, Observer {
-
-            print("show mapa")
+        mapViewModel.producers.observe(this, Observer {
+            print("Tamano ${it.size}")
         })
 
     }
