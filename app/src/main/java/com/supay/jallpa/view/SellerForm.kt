@@ -11,7 +11,5 @@ class SellerForm : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.seller_form_activity)
 
-
-
     }
 }
