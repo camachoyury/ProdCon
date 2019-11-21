@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
     internal lateinit var locationTrack: LocationTrack
 
     val viewModel by lazy {
-        getViewModel { TrackViewModel(Injector.trackerRepository) }
+        getViewModel { TrackViewModel() }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -73,7 +73,7 @@ class MainActivity : AppCompatActivity() {
 
                 val longitude = locationTrack.getLongitude()
                 val latitude = locationTrack.getLatitude()
-                viewModel.setCurrentLocation(Location(longitude, latitude))
+//                viewModel.setCurrentLocation(Location(longitude, latitude))
 
                 Toast.makeText(
                     getApplicationContext(),
