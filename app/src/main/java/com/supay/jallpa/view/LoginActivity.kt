@@ -13,8 +13,6 @@ class LoginActivity : AppCompatActivity() {
 
         buttonEnter.setOnClickListener {
 
-
-
         }
 
     }

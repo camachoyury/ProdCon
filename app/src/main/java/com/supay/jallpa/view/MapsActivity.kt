@@ -4,15 +4,19 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.Observer
 
-import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.supay.jallpa.R
 import com.supay.jallpa.viewmodel.MapViewModel
 import com.supay.jallpa.viewmodel.getViewModel
+import com.google.android.gms.maps.model.Marker
+import com.supay.core.Seller
+import com.google.android.gms.maps.model.LatLngBounds
+
+import android.content.res.Resources
+import com.google.android.gms.maps.*
+
+
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
@@ -29,27 +33,56 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         mapFragment.getMapAsync(this)
         mapViewModel.updateUI()
 
-        mapViewModel.producers.observe(this, Observer {
-            print("Tamano ${it.size}")
-        })
 
     }
 
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
 
-        // Add a marker in Sydney and move the camera
-        val sydney = LatLng(-34.0, 151.0)
-        mMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+//        // Add a marker in Sydney and move the camera
+//        val sydney = LatLng(-34.0, 151.0)
+//        mMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
+//        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+
+        mapViewModel.producers.observe(this, Observer {
+            showLocationsOnMap(it)
+        })
+
+
     }
+
+
+    private fun showLocationsOnMap( items: List<Seller>) {
+
+        var latitude: Float
+        var longitude: Float
+        var marker: Marker
+        val builder = LatLngBounds.Builder()
+        //Add markers for all locations
+        for (location in items) {
+
+            latitude = location.location.latitude.toFloat()
+            longitude = location.location.longitude.toFloat()
+           var latlang = LatLng(latitude.toDouble(), longitude.toDouble())
+
+            marker = mMap.addMarker(
+                MarkerOptions()
+                    .position(latlang)
+                    .title(location.name)
+            )
+
+
+            builder.include(marker.position)
+        }
+
+        var bounds = builder.build()
+        var cameraUpdate = CameraUpdateFactory.newLatLngBounds(bounds, dpToPx(40));
+        mMap.moveCamera(cameraUpdate);
+
+    }
+
+    fun  dpToPx( dp: Int): Int {
+        return (dp * Resources.getSystem().displayMetrics.density).toInt()
+    }
+
 }

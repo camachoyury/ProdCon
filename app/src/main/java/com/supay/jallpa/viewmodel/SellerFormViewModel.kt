@@ -10,9 +10,6 @@ class SellerFormViewModel(): ViewModel() {
     fun saveSeller(seller: Seller){
 
 
-
-
-
     }
 
 
