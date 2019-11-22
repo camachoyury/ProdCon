@@ -17,8 +17,7 @@ import android.content.res.Resources
 import com.google.android.gms.maps.*
 
 
-
-class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
+class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener,ActionBottomDialogFragment.ItemClickListener  {
 
     private lateinit var mMap: GoogleMap
 
@@ -47,10 +46,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         mapViewModel.producers.observe(this, Observer {
             showLocationsOnMap(it)
         })
-
-
     }
-
 
     private fun showLocationsOnMap( items: List<Seller>) {
 
@@ -59,21 +55,22 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         var marker: Marker
         val builder = LatLngBounds.Builder()
         //Add markers for all locations
-        for (location in items) {
+        for (producer in items) {
 
-            latitude = location.location.latitude.toFloat()
-            longitude = location.location.longitude.toFloat()
-           var latlang = LatLng(latitude.toDouble(), longitude.toDouble())
-
+            latitude = producer.location.latitude.toFloat()
+            longitude = producer.location.longitude.toFloat()
+            var latlang = LatLng(latitude.toDouble(), longitude.toDouble())
+            mMap.setOnMarkerClickListener(this);
             marker = mMap.addMarker(
                 MarkerOptions()
                     .position(latlang)
-                    .title(location.name)
+                    .title(producer.name)
+
             )
-
-
+            marker.tag = producer
             builder.include(marker.position)
         }
+
 
         var bounds = builder.build()
         var cameraUpdate = CameraUpdateFactory.newLatLngBounds(bounds, dpToPx(40));
@@ -81,8 +78,29 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     }
 
-    fun  dpToPx( dp: Int): Int {
+    private fun  dpToPx(dp: Int): Int {
         return (dp * Resources.getSystem().displayMetrics.density).toInt()
+    }
+
+    fun showBottomSheet(seller: Seller) {
+
+        val sellerInfoBottomSheet = ActionBottomDialogFragment.newInstance(seller)
+        sellerInfoBottomSheet.show(
+            supportFragmentManager,
+            ActionBottomDialogFragment.TAG
+        )
+    }
+
+    override fun onItemClick(item: String) {
+//        tvSelectedItem.setText("Selected action item is $item")
+    }
+
+
+    override fun onMarkerClick(marker: Marker?): Boolean {
+        var seller = marker?.tag as Seller
+        showBottomSheet(seller)
+        marker.showInfoWindow();
+        return false
     }
 
 }

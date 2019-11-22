@@ -6,13 +6,9 @@ import com.supay.core.Seller
 
 class SellerFormViewModel(): ViewModel() {
 
-
     fun saveSeller(seller: Seller){
 
 
     }
-
-
-
 
 }

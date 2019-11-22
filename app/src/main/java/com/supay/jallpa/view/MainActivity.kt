@@ -1,5 +1,6 @@
 package com.supay.jallpa.view
 
+import android.Manifest.permission.*
 import android.annotation.TargetApi
 import android.content.DialogInterface
 import android.content.pm.PackageManager
@@ -11,8 +12,6 @@ import android.widget.Toast
 
 import java.util.ArrayList
 
-import android.Manifest.permission.ACCESS_COARSE_LOCATION
-import android.Manifest.permission.ACCESS_FINE_LOCATION
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 
@@ -40,6 +39,7 @@ class MainActivity : AppCompatActivity() {
 
         permissions.add(ACCESS_FINE_LOCATION)
         permissions.add(ACCESS_COARSE_LOCATION)
+        permissions.add(CALL_PHONE)
 
 
 
