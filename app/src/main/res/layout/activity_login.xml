@@ -9,8 +9,15 @@
     android:padding="24dp"
     tools:context="com.supay.jallpa.view.LoginActivity">
 
+    <ProgressBar
+        android:id="@+id/progress"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:visibility="gone" />
+
     <EditText
-        android:id="@+id/editTextPhone"
+        android:id="@+id/loginPhone"
         android:layout_width="match_parent"
         android:paddingStart="15dp"
         android:paddingEnd="15dp"
@@ -23,7 +30,21 @@
         android:textColor="@color/colorBlack"
         android:hint="Celular" />
 
-    <com.google.android.material.textfield.TextInputLayout
+    <EditText
+        android:id="@+id/verifyCode"
+        android:layout_width="match_parent"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        android:layout_height="50dp"
+        android:ems="10"
+        android:layout_marginTop="18dp"
+        android:background="@drawable/custom_edittext"
+        android:inputType="phone"
+        android:textSize="16dp"
+        android:textColor="@color/colorBlack"
+        android:hint="Código de verificación" />
+
+    <!--<com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:paddingStart="15dp"
         android:paddingEnd="15dp"
@@ -39,20 +60,20 @@
         android:background="@drawable/custom_edittext">
 
         <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/editTextPassword"
+            android:id="@+id/loginPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
             android:inputType="textPassword"
             android:textColor="@color/colorBlack" />
 
-    </com.google.android.material.textfield.TextInputLayout>
+    </com.google.android.material.textfield.TextInputLayout>-->
 
     <Button
         android:id="@+id/buttonEnter"
         android:layout_marginTop="50dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:backgroundTint="@color/colorAccent"
         android:textColor="@color/colorWhite"
         android:text="Entrar" />
