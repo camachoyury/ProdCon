@@ -25,7 +25,8 @@ class MenuActivity: AppCompatActivity() {
         permissions.add(Manifest.permission.ACCESS_FINE_LOCATION)
         permissions.add(Manifest.permission.ACCESS_COARSE_LOCATION)
         permissions.add(Manifest.permission.CALL_PHONE)
-
+        supportActionBar?.setDisplayShowHomeEnabled(true);
+        supportActionBar?.setIcon(R.mipmap.ic_launcher_2_foreground)
 
         permissionsToRequest = findUnAskedPermissions(permissions)
         //get the permissions we have asked for before but are not granted..
@@ -39,7 +40,7 @@ class MenuActivity: AppCompatActivity() {
                 )
         }
 
-        map.setOnClickListener {
+        buyer.setOnClickListener {
 
 
             val myIntent = Intent(this, MapsActivity::class.java)
@@ -49,11 +50,11 @@ class MenuActivity: AppCompatActivity() {
         seller.setOnClickListener {
             val myIntent = Intent(this, SellerForm::class.java)
             startActivity(myIntent) }
-
-        sellerRegistry.setOnClickListener {
-            val myIntent = Intent(this, SellerForm::class.java)
-            startActivity(myIntent)
-        }
+//
+//        s.setOnClickListener {
+//            val myIntent = Intent(this, SellerForm::class.java)
+//            startActivity(myIntent)
+//        }
     }
 
     private fun findUnAskedPermissions(wanted: ArrayList<String>): ArrayList<String> {
