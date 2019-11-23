@@ -2,17 +2,22 @@ package com.supay.jallpa.view
 
 import android.Manifest
 import android.annotation.TargetApi
+import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.supay.jallpa.R
 import kotlinx.android.synthetic.main.main_layout.*
 import java.util.ArrayList
-import android.Manifest.permission.*
+import com.supay.jallpa.ValidatePhoneActivity
+import com.google.gson.Gson
+
+import com.supay.core.Seller
 
 
 class MenuActivity: AppCompatActivity() {
@@ -35,7 +40,8 @@ class MenuActivity: AppCompatActivity() {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (permissionsToRequest!!.size > 0)
-                requestPermissions(permissionsToRequest!!.toTypedArray(),
+                requestPermissions(
+                    permissionsToRequest!!.toTypedArray(),
                     ALL_PERMISSIONS_RESULT
                 )
         }
@@ -45,18 +51,32 @@ class MenuActivity: AppCompatActivity() {
 
             val myIntent = Intent(this, MapsActivity::class.java)
             startActivity(myIntent)
+
+
         }
 
         seller.setOnClickListener {
-            val myIntent = Intent(this, SellerForm::class.java)
-            startActivity(myIntent) }
-//
-//        s.setOnClickListener {
-//            val myIntent = Intent(this, SellerForm::class.java)
-//            startActivity(myIntent)
-//        }
-    }
 
+
+            val sharedPref = getSharedPreferences(
+                ValidatePhoneActivity.PREFERENCE_FILE_KEY, Context.MODE_PRIVATE
+            )
+
+            val gson = Gson()
+            val json = sharedPref.getString("USER", "")
+            val obj = gson.fromJson<Seller>(json, Seller::class.java)
+
+            if (obj != null) {
+                val myIntent = Intent(this, MainActivity::class.java)
+                startActivity(myIntent)
+
+            } else {
+                val myIntent = Intent(this, ValidatePhoneActivity::class.java)
+                startActivity(myIntent)
+            }
+
+        }
+    }
     private fun findUnAskedPermissions(wanted: ArrayList<String>): ArrayList<String> {
         val result = ArrayList<String>()
 

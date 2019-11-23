@@ -18,6 +18,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".view.LoginActivity"></activity>
         <activity android:name=".view.MainActivity"></activity>
+        <activity android:name=".ValidatePhoneActivity"></activity>
         <activity android:name=".view.MenuActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -32,6 +33,7 @@
 
         <activity android:name=".view.MapsActivity"></activity>
         <activity android:name=".view.SellerForm"></activity>
+
     </application>
 
 </manifest>

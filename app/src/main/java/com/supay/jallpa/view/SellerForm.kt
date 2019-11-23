@@ -52,7 +52,7 @@ class SellerForm : AppCompatActivity() {
 
         val name = editTextName.text.toString().trim()
         val phone = editTextPhone.text.toString().trim()
-        val password = editTextPassword.text.toString().trim()
+//        val password = editTextPassword.text.toString().trim()
         val address = editTextAddress.text.toString().trim()
         val product = editTextProduct.text.toString().trim()
         val additionalComments = editTextComments.text.toString().trim()
@@ -63,12 +63,12 @@ class SellerForm : AppCompatActivity() {
         } else if (phone.isEmpty()){
             editTextPhone.error = "Por favor ingresa tu celular."
             return
-        } else if (password.isEmpty()){
-            editTextPassword.error = "Por favor ingresa una contraseña."
-            return
-        } else if (password.length < 8){
-            editTextPassword.error = "Por favor ingresa una contraseña de al menos 8 caractéres."
-            return
+//        } else if (password.isEmpty()){
+//            editTextPassword.error = "Por favor ingresa una contraseña."
+//            return
+//        } else if (password.length < 8){
+//            editTextPassword.error = "Por favor ingresa una contraseña de al menos 8 caractéres."
+//            return
         } else if (product.isEmpty()){
             editTextProduct.error = "Por favor ingresa el/los producto(s)."
             return
@@ -79,17 +79,20 @@ class SellerForm : AppCompatActivity() {
 
         val sellerId = reference.push().key
 
-        val hashedPassword = stringToHashedString(applicationContext,password)
+//        val hashedPassword = stringToHashedString(applicationContext,password)
 
-        val location = Location(0.toDouble(),0.toDouble())
+        val location = Location(-17.3779072,-66.1534244)
 
-        val producer = Seller(sellerId.toString(), name, phone, hashedPassword, address, product, additionalComments, location)
+        val producer = Seller(sellerId.toString(), name, phone, "", address, product, additionalComments, location)
 
         if (sellerId != null) {
             reference.child(sellerId).setValue(producer).addOnCompleteListener {
+
                 Toast.makeText(applicationContext, "Enviado", Toast.LENGTH_SHORT).show()
-                val intent = Intent(this, MapsActivity::class.java)
+                val intent = Intent(this, MenuActivity::class.java)
                 startActivity(intent)
+
+
             }
         }
     }

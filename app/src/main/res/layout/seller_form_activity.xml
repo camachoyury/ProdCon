@@ -121,25 +121,17 @@
                 android:textSize="16dp"
                 android:textColor="@color/colorBlack"
                 android:hint="Comentarios Adicionales" />
+            <Button
+                android:id="@+id/buttonSave"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorAccent"
+                android:textColor="@color/colorWhite"
+                android:text="Registrar" />
 
         </LinearLayout>
 
     </ScrollView>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="fill_parent"
-        android:layout_weight="1"
-        android:gravity="bottom">
-
-        <Button
-            android:id="@+id/buttonSave"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/colorAccent"
-            android:textColor="@color/colorWhite"
-            android:text="Registrar" />
-
-    </LinearLayout>
 
 </LinearLayout>

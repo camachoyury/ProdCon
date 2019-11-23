@@ -1,9 +1,13 @@
 package com.supay.jallpa.view
 
 import android.Manifest.permission.*
+import android.annotation.SuppressLint
 import android.annotation.TargetApi
+import android.content.Context
 import android.content.DialogInterface
 import android.content.pm.PackageManager
+import android.location.Criteria
+import android.location.LocationManager
 import android.os.Build
 
 import android.os.Bundle
@@ -14,21 +18,86 @@ import java.util.ArrayList
 
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
+import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.common.collect.MapMaker
+import com.google.gson.Gson
 
-import com.supay.core.Location
+import com.supay.core.Seller
 import com.supay.jallpa.LocationTrack
 import com.supay.jallpa.R
+import com.supay.jallpa.ValidatePhoneActivity
 import com.supay.jallpa.viewmodel.TrackViewModel
 import com.supay.jallpa.viewmodel.getViewModel
 
-class MainActivity : AppCompatActivity() {
+import com.google.firebase.database.FirebaseDatabase
+
+
+class MainActivity : AppCompatActivity() , OnMapReadyCallback, GoogleMap.OnMarkerDragListener {
+    override fun onMarkerDragEnd(p0: Marker?) {
+        mMap.clear()
+        mMap.animateCamera(CameraUpdateFactory.newLatLng(p0?.getPosition()));
+
+    }
+
+    override fun onMarkerDragStart(p0: Marker?) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun onMarkerDrag(p0: Marker?) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    private lateinit var mMap: GoogleMap
+    private lateinit var marker: Marker
+
+    @SuppressLint("MissingPermission")
+    override fun onMapReady(googleMap: GoogleMap?) {
+        if (googleMap != null) {
+            mMap = googleMap
+        }
+        mMap.isMyLocationEnabled = true;
+        mMap.setOnMarkerDragListener(this)
+        val locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        val criteria = Criteria()
+
+        val location = locationManager.getLastKnownLocation(
+            locationManager
+                .getBestProvider(criteria, false)!!
+        )
+        val latitude = location!!.latitude
+        val longitude = location.longitude
+        val myLocation = LatLng(latitude, longitude)
+        updateMarker(myLocation)
+    }
+
+    private fun updateMarker(myLocation: LatLng) {
+        mMap.clear()
+        marker = mMap.addMarker(
+            MarkerOptions()
+                .position(myLocation)
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)).draggable(
+                    true
+                )
+        )
+
+
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(myLocation, 15.0f))
+    }
 
 
     private var permissionsToRequest: ArrayList<String>? = null
     private val permissionsRejected = ArrayList<String>()
     private val permissions = ArrayList<String>()
     internal lateinit var locationTrack: LocationTrack
-
+    var mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference();
     val viewModel by lazy {
         getViewModel { TrackViewModel() }
     }
@@ -42,11 +111,10 @@ class MainActivity : AppCompatActivity() {
         permissions.add(CALL_PHONE)
 
 
+        val mapFragment = supportFragmentManager
+            .findFragmentById(R.id.map) as SupportMapFragment
+        mapFragment.getMapAsync(this)
 
-
-
-
-//        showFirstTodo()
         permissionsToRequest = findUnAskedPermissions(permissions)
         //get the permissions we have asked for before but are not granted..
         //we will store this in a global list to access later.
@@ -60,7 +128,7 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-        val btn = findViewById<Button>(R.id.btn)
+        val btn = findViewById<FloatingActionButton>(R.id.btn)
 
 
         btn.setOnClickListener {
@@ -73,7 +141,9 @@ class MainActivity : AppCompatActivity() {
 
                 val longitude = locationTrack.getLongitude()
                 val latitude = locationTrack.getLatitude()
-//                viewModel.setCurrentLocation(Location(longitude, latitude))
+                updateLocation(longitude,latitude)
+
+
 
                 Toast.makeText(
                     getApplicationContext(),
@@ -90,6 +160,31 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+
+    fun updateLocation( longitude:Double, latitude: Double){
+
+        updateMarker(LatLng(latitude,longitude))
+        val sharedPref = getSharedPreferences(
+            ValidatePhoneActivity.PREFERENCE_FILE_KEY, Context.MODE_PRIVATE
+        )
+
+        val gson = Gson()
+        val json = sharedPref.getString("USER", "")
+        val obj = gson.fromJson<Seller>(json, Seller::class.java)
+
+        if (obj != null){
+            try {
+                mFirebaseDatabaseReference.child("productores").child(obj.id).child("location").child("longitude")
+                    .setValue(longitude)
+                mFirebaseDatabaseReference.child("productores").child(obj.id).child("location").child("latitude")
+                    .setValue(latitude)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+
+
+        }
+    }
 
     private fun findUnAskedPermissions(wanted: ArrayList<String>): ArrayList<String> {
         val result = ArrayList<String>()
