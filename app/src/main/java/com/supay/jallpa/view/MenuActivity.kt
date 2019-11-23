@@ -13,6 +13,9 @@ import com.supay.jallpa.R
 import kotlinx.android.synthetic.main.main_layout.*
 import java.util.ArrayList
 import android.Manifest.permission.*
+import android.view.LayoutInflater
+import android.widget.Button
+import com.google.gson.Gson
 
 
 class MenuActivity: AppCompatActivity() {
@@ -32,6 +35,14 @@ class MenuActivity: AppCompatActivity() {
         //get the permissions we have asked for before but are not granted..
         //we will store this in a global list to access later.
 
+        val sharedPref = getSharedPreferences("Data",0)
+
+        if (sharedPref.contains("SellerInfo")){
+            val myIntent = Intent(this, SellerActivity::class.java)
+            startActivity(myIntent)
+            finish()
+        }
+
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (permissionsToRequest!!.size > 0)
@@ -48,8 +59,8 @@ class MenuActivity: AppCompatActivity() {
         }
 
         seller.setOnClickListener {
-            val myIntent = Intent(this, SellerForm::class.java)
-            startActivity(myIntent) }
+            popUpDialog()
+        }
 //
 //        s.setOnClickListener {
 //            val myIntent = Intent(this, SellerForm::class.java)
@@ -134,6 +145,34 @@ class MenuActivity: AppCompatActivity() {
     companion object {
 
         private val ALL_PERMISSIONS_RESULT = 101
+    }
+
+    fun popUpDialog(){
+
+        val builder = AlertDialog.Builder(this)
+
+        val inflater = LayoutInflater.from(this)
+
+        val view = inflater.inflate(R.layout.login_dialog, null)
+
+        val goLogin = view.findViewById<Button>(R.id.goLoginBtn)
+        val goRegistry = view.findViewById<Button>(R.id.goRegistryBtn)
+
+        builder.setView(view)
+
+        goLogin.setOnClickListener {
+            val myIntent = Intent(this, LoginActivity::class.java)
+            startActivity(myIntent)
+        }
+
+        goRegistry.setOnClickListener {
+            val myIntent = Intent(this, SellerForm::class.java)
+            startActivity(myIntent)
+        }
+
+        val alert = builder
+        alert.show()
+
     }
 
 

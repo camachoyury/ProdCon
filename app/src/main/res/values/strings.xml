@@ -5,4 +5,21 @@
     <string name="action_upload">Upload</string>
     <string name="action_copy">Copy</string>
     <string name="action_print">Print</string>
+    <string name="buscar_productos">Buscar\nProductos</string>
+    <string name="marcar_posicion">Marcar\nPosición</string>
+    <string name="comentarios_adicionales">Comentarios Adicionales</string>
+    <string name="producto">Producto</string>
+    <string name="direccion">Dirección</string>
+    <string name="celular">Celular</string>
+    <string name="nombre_completo">Nombre Completo</string>
+    <string name="productor">Productor</string>
+    <string name="cerrar_sesion">Cerrar sesión</string>
+    <string name="iniciar_sesion">Iniciar sesión</string>
+    <string name="registrarme_como_productor">Registrarme como productor.</string>
+    <string name="direccion_no_obligatoria">Dirección (No obligatoria)</string>
+    <string name="comprar">Comprar</string>
+    <string name="vender">Vender</string>
+    <string name="codigo_de_verificacion">Código de verificación</string>
+    <string name="enviar_codigo">Enviar Código de Verificación</string>
+    <string name="registrarme">Registrarme</string>
 </resources>

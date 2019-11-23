@@ -36,14 +36,14 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
         mapViewModel.updateUI()
-        supportActionBar?.setDisplayHomeAsUpEnabled(true);
-        supportActionBar?.setDisplayShowHomeEnabled(true);
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
     }
 
     @SuppressLint("MissingPermission")
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
-        mMap.isMyLocationEnabled = true;
+        mMap.isMyLocationEnabled = true
 
         val locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
         val criteria = Criteria()
@@ -52,10 +52,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
             locationManager
                 .getBestProvider(criteria, false)!!
         )
-        val latitude = location!!.latitude
-        val longitude = location.longitude
-        val myLocation = LatLng(latitude, longitude)
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(myLocation, 10.0f))
+//        val latitude = location!!.latitude
+//        val longitude = location.longitude
+//        val myLocation = LatLng(latitude, longitude)
+//        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(myLocation, 10.0f))
 
 
         mapViewModel.producers.observe(this, Observer {

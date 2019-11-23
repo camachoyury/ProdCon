@@ -12,10 +12,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthProvider
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.*
+import com.google.gson.Gson
 import com.supay.core.Seller
 import com.supay.jallpa.R
 import kotlinx.android.synthetic.main.activity_login.*
@@ -23,11 +21,16 @@ import java.util.concurrent.TimeUnit
 
 class LoginActivity : AppCompatActivity() {
 
+    var TAG = "LoginActivity"
     lateinit var callbacks: PhoneAuthProvider.OnVerificationStateChangedCallbacks
     lateinit var phone: String
     lateinit var code: String
     lateinit var auth: FirebaseAuth
     var storedVerificationId = ""
+    var phoneExist: Boolean = false
+    lateinit var sellerData: Seller
+
+    lateinit var ref: DatabaseReference
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,6 +39,7 @@ class LoginActivity : AppCompatActivity() {
 
         verifyCode.visibility = View.INVISIBLE
         auth = FirebaseAuth.getInstance()
+        ref = FirebaseDatabase.getInstance().getReference("productores")
 
         buttonEnter.setOnClickListener {
 
@@ -71,14 +75,7 @@ class LoginActivity : AppCompatActivity() {
                 progress.visibility = View.VISIBLE
                 verify()
             }
-
-
-
-
-
-            }
-
-
+        }
     }
 
     private fun verificationCallbacks(){
@@ -92,8 +89,8 @@ class LoginActivity : AppCompatActivity() {
                 // 2 - Auto-retrieval. On some devices Google Play services can automatically
                 //     detect the incoming verification SMS and perform verification without
                 //     user action.
-//                Log.d(TAG, "onVerificationCompleted:$credential")
-
+                Log.d(TAG, "onVerificationCompleted:$credential")
+                progress.visibility = View.GONE
                 signInWithPhoneAuthCredential(credential)
             }
 
@@ -104,9 +101,11 @@ class LoginActivity : AppCompatActivity() {
 
                 if (e is FirebaseAuthInvalidCredentialsException) {
                     // Invalid request
+                    toast("Solicitud inválida. Error.")
                     // ...
                 } else if (e is FirebaseTooManyRequestsException) {
                     // The SMS quota for the project has been exceeded
+                    toast("Demasiados intentos. Pruebe más tarde.")
                     // ...
                 }
 
@@ -130,7 +129,8 @@ class LoginActivity : AppCompatActivity() {
                 storedVerificationId = verificationId
                 progress.visibility = View.GONE
                 verifyCode.visibility = View.VISIBLE
-                buttonEnter.setText("Enviar Código")
+                loginPhone.isFocusableInTouchMode = false
+                buttonEnter.setText("Comprobar Código de Verificación")
 //                resendToken = token
 
                 // ...
@@ -147,14 +147,18 @@ class LoginActivity : AppCompatActivity() {
 //                    Log.d(TAG, "signInWithCredential:success")
 
                     val user = task.result?.user
+
+                    checkPhoneInDB(phone)
+
                     toast("Usuario autenticado")
-                    startActivity(Intent(this, MapsActivity::class.java))
+
                     // ...
                 } else {
                     // Sign in failed, display a message and update the UI
 //                    Log.w(TAG, "signInWithCredential:failure", task.exception)
                     if (task.exception is FirebaseAuthInvalidCredentialsException) {
                         // The verification code entered was invalid
+                        toast("Código inválido")
 
                     }
                 }
@@ -185,6 +189,64 @@ class LoginActivity : AppCompatActivity() {
 
     private fun toast (msg: String) {
         Toast.makeText(this, msg, Toast.LENGTH_LONG).show()
+    }
+
+    fun checkPhoneInDB(cel: String){
+
+        val celular: String
+
+        if (cel.contains("+591")){
+            celular = cel.removePrefix("+591")
+        } else if (cel.contains("00591")){
+            celular = cel.removePrefix("00591")
+        } else {
+            celular = cel
+        }
+
+        ref.addValueEventListener(object: ValueEventListener {
+            override fun onCancelled(p0: DatabaseError) {
+//                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                Toast.makeText(applicationContext,"Error en la Base de Datos", Toast.LENGTH_SHORT)
+            }
+
+            override fun onDataChange(p0: DataSnapshot) {
+
+                if (p0!!.exists()){
+
+                    for (pr in p0.children){
+                        val s = pr.getValue(Seller::class.java)
+                        if (s!!.phone.equals(celular)){
+                            phoneExist = true
+                            sellerData = s
+                            break
+                        }
+                    }
+
+                }
+
+                if (phoneExist){
+                    saveSellerInfo(sellerData)
+                    startActivity(Intent(applicationContext, SellerActivity::class.java))
+                    finish()
+                } else {
+                    startActivity(Intent(applicationContext, MenuActivity::class.java))
+                    finish()
+                }
+
+
+            }
+
+        })
+    }
+
+    fun saveSellerInfo(seller: Seller){
+
+        val sharedPref = getSharedPreferences("Data",0)
+        val editor = sharedPref.edit()
+        val gson = Gson()
+        val json = gson.toJson(seller)
+        editor.putString("SellerInfo", json)
+        editor.apply()
     }
 
 }
